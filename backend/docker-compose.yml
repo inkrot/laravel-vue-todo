@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+    db:
+        platform: linux/x86_64
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel_vue_todo_database
+            TZ: Europe/Moscow
+        ports:
+            - 3310:3306

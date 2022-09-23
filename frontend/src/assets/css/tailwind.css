@@ -17,10 +17,5 @@ a {
 @tailwind utilities;
 
 @layer components {
-    /*.btn-mts {
-        @apply bg-red-mts hover:bg-red-mts-h text-white;
-    }
-    .btn-mts-disabled {
-        @apply bg-gray-mts-d text-gray-mts-dt;
-    }*/
+
 }
