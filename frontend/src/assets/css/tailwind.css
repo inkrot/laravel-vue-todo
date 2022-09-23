@@ -1,0 +1,26 @@
+@tailwind base;
+h1 {
+    @apply text-2xl;
+}
+h2 {
+    @apply text-xl;
+}
+h3 {
+    @apply text-lg;
+}
+a {
+    @apply text-blue-600 underline;
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+    /*.btn-mts {
+        @apply bg-red-mts hover:bg-red-mts-h text-white;
+    }
+    .btn-mts-disabled {
+        @apply bg-gray-mts-d text-gray-mts-dt;
+    }*/
+}
