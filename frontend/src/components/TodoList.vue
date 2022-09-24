@@ -27,19 +27,26 @@
                 type="text"
                 class="w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white border border-solid transition ease-in-out focus:outline-none rounded-xl"
                 :class="{
-                    'border-gray-300 focus:text-gray-700 focus:bg-white focus:border-blue-600': newItemNameValid,
-                    'border-red-600 focus:text-gray-700 bg-red-100': !newItemNameValid,
+                    'border-gray-300 focus:text-gray-700 focus:bg-white focus:border-blue-600': newItemNameValid || !newItemNameInputErrorDecoration,
+                    'border-red-600 focus:text-gray-700 bg-red-100': !newItemNameValid && newItemNameInputErrorDecoration,
                 }"
                 placeholder="Enter task here"
                 @keyup.enter="addNewItem"
                 v-model="newItemName"
             />
-            <button
-                @click="addNewItem"
-                class="add-new-button ml-1 bg-green-500 border-gray-300 transition ease-in-out rounded-xl flex justify-center items-center"
-            >
-                <icon class="text-xl text-white" icon="plus" />
-            </button>
+            <div class="add-new-button-wrapper ml-1">
+                <VueCustomTooltip
+                    :label="newItemNameError"
+                    class="w-full h-full"
+                >
+                    <button
+                        @click="addNewItem"
+                        class="w-full h-full bg-green-500 border-gray-300 transition ease-in-out rounded-xl flex justify-center items-center"
+                    >
+                        <icon class="text-xl text-white" icon="plus" />
+                    </button>
+                </VueCustomTooltip>
+            </div>
         </div>
     </div>
 </template>
@@ -48,11 +55,12 @@
 
 import Dropdown from "@/components/Dropdown";
 import TodoItem from "@/components/TodoItem";
-import { CREATE_TODO_ITEM, GET_TODO_ITEMS, UPDATE_TODO_ITEM } from "@/store/action-types";
+import { CREATE_TODO_ITEM, GET_TODO_ITEMS } from "@/store/action-types";
+import VueCustomTooltip from '@adamdehaven/vue-custom-tooltip'
 
 export default {
     name: "TodoList",
-    components: {TodoItem, Dropdown},
+    components: {TodoItem, Dropdown, VueCustomTooltip},
     props: {
         title: {
             type: String,
@@ -76,7 +84,8 @@ export default {
         },
     },
     data: () => ({
-        newItemName: ''
+        newItemName: '',
+        newItemNameError: '',
     }),
     computed: {
         isCountBadgeColoring() {
@@ -85,14 +94,25 @@ export default {
         todosCount() {
             return this.items?.length ?? 0
         },
+        newItemNameInputErrorDecoration() {
+            return this.newItemName?.length > 0
+        },
         newItemNameValid() {
-            return this.newItemName?.length <= 512
+            if (this.newItemName?.length < 1) {
+                this.newItemNameError = 'Enter the name of the task'
+                return false
+            }
+            if (this.newItemName?.length > 512) {
+                this.newItemNameError = 'Max length of the task name should not be longer than 512 characters'
+                return false
+            }
+            this.newItemNameError = ''
+            return true
         },
     },
     methods: {
         addNewItem() {
             if (!this.newItemNameValid) {
-                alert('Max length of the task name should not be longer than 512 characters')
                 return
             }
             this.$store.dispatch(CREATE_TODO_ITEM, {
@@ -108,7 +128,7 @@ export default {
 
 <style scoped>
 
-.add-new-button {
+.add-new-button-wrapper {
     min-width: 40px;
 }
 
