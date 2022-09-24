@@ -12,8 +12,9 @@
                 <icon class="text-sm text-white" icon="check" />
             </div>
             <p
-                class="ml-2"
+                class="item-row__name ml-2"
                 :class="{'line-through': item.done}"
+                :title="item.name"
             >
                 {{ item.name }}
             </p>
@@ -89,6 +90,11 @@ export default {
 
 .item-row {
     min-height: 56px;
+}
+
+.item-row__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .done-icon-wrapper {
