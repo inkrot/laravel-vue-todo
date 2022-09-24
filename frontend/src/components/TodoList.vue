@@ -25,7 +25,11 @@
         >
             <input
                 type="text"
-                class="w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none rounded-xl"
+                class="w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white border border-solid transition ease-in-out focus:outline-none rounded-xl"
+                :class="{
+                    'border-gray-300 focus:text-gray-700 focus:bg-white focus:border-blue-600': newItemNameValid,
+                    'border-red-600 focus:text-gray-700 bg-red-100': !newItemNameValid,
+                }"
                 placeholder="Enter task here"
                 @keyup.enter="addNewItem"
                 v-model="newItemName"
@@ -81,9 +85,16 @@ export default {
         todosCount() {
             return this.items?.length ?? 0
         },
+        newItemNameValid() {
+            return this.newItemName?.length <= 512
+        },
     },
     methods: {
         addNewItem() {
+            if (!this.newItemNameValid) {
+                alert('Max length of the task name should not be longer than 512 characters')
+                return
+            }
             this.$store.dispatch(CREATE_TODO_ITEM, {
                 name: this.newItemName
             }).then(() => {
