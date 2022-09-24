@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper w-full h-full flex flex-col justify-center items-center p-4 md:p-0">
         <div class="mt-5 md:mt-0 mb-4">
-            <h1 class="text-xl md:text-2xl text-white font-bold">Todo app {{todoItemsStatus}}</h1>
+            <h1 class="text-xl md:text-2xl text-white font-bold">Todo app</h1>
         </div>
         <div class="main-container-wrapper overflow-hidden rounded-xl border-2 w-full h-full md:w-5/6 md:h-4/6 bg-white">
             <div class="main-container shadow-dark-blue w-full h-full p-4 flex flex-row">
