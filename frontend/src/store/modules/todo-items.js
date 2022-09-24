@@ -39,21 +39,19 @@ const TodoItemsModule = {
                 })
             })
         },
-        [CREATE_TODO_ITEM]: (context, todoItem) => {
+        [CREATE_TODO_ITEM]: (context, body) => {
             return new Promise((resolve, reject) => {
                 $api.post(
-                    '/api/todo-items',
-                    todoItem
+                    '/api/todo-items', body
                 ).then(r => {
                     resolve(r)
                 }).catch(e => reject(e))
             })
         },
-        [UPDATE_TODO_ITEM]: (context, {id, todoItem}) => {
+        [UPDATE_TODO_ITEM]: (context, {id, body}) => {
             return new Promise((resolve, reject) => {
                 $api.put(
-                    '/api/todo-items/' + id,
-                    todoItem
+                    '/api/todo-items/' + id, body
                 ).then(r => {
                     resolve(r)
                 }).catch(e => reject(e))
