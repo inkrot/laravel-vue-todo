@@ -19,9 +19,11 @@ class TodoItemsTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             TodoItem::create([
-                'name' => $faker->sentence(3)
+                'name' => $faker->sentence(3),
+                'done' => $faker->boolean(30),
+                'urgent' => $faker->boolean(10),
             ]);
         }
     }
