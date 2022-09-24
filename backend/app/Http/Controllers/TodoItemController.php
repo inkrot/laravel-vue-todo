@@ -36,6 +36,8 @@ class TodoItemController extends Controller
     {
         $rules = [
             'name' => 'required|min:1|max:512',
+            'done' => 'required|boolean',
+            'urgent' => 'required|boolean',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
