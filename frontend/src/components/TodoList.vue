@@ -10,7 +10,7 @@
             </p>
         </div>
         <hr class="my-3 bg-gray-400 border-0" style="height: 1px">
-        <ul class="h-full overflow-y-auto overscroll-auto">
+        <ul class="h-full overflow-y-auto overscroll-auto p-2">
             <li class="mb-2 w-full" v-for="item in items">
                 <TodoItem
                     :item="item"

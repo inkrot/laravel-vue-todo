@@ -4,14 +4,19 @@
         :actions="dropdownActions"
         :item="item"
     >
-        <div class="item-row flex items-center w-full shadow bg-white hover:bg-gray-100 text-gray-800 p-3 rounded-full uns">
+        <div class="item-row flex items-center w-full shadow bg-white hover:bg-gray-100 text-gray-800 p-3 rounded-xl uns">
             <div
                 v-if="item.done"
                 class="done-icon-wrapper bg-green-500 rounded-full flex justify-center items-center"
             >
                 <icon class="text-xl text-white" icon="check" />
             </div>
-            <p class="ml-2">{{ item.name }}</p>
+            <p
+                class="ml-2"
+                :class="{'line-through': item.done}"
+            >
+                {{ item.name }}
+            </p>
         </div>
     </Dropdown>
 </template>
