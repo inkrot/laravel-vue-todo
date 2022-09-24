@@ -9,6 +9,7 @@
                     class="todo-list-col w-full"
                     :title="'Todos'"
                     :items="regularTodoItems"
+                    :show-new-item-input="true"
                     @action="actionHandler"
                 />
                 <TodoList

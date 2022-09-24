@@ -9,14 +9,34 @@
                 {{ todosCount }}
             </p>
         </div>
-        <hr class="my-3 bg-gray-400 border-0" style="height: 1px">
-        <ul class="h-full overflow-y-auto overscroll-auto p-2">
-            <li class="mb-2 w-full" v-for="item in items">
-                <TodoItem
-                    :item="item"
-                />
-            </li>
-        </ul>
+        <hr class="my-2 bg-gray-400 border-0" style="height: 1px">
+        <div class="h-full px-4 overflow-y-auto overscroll-auto">
+            <ul class="-mx-3 mb-10">
+                <li class="mb-2 w-full" v-for="item in items">
+                    <TodoItem
+                        :item="item"
+                    />
+                </li>
+            </ul>
+        </div>
+        <div
+            v-if="showNewItemInput"
+            class="mt-2 h-12 flex"
+        >
+            <input
+                type="text"
+                class="w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white border border-solid border-gray-300 transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none rounded-xl"
+                placeholder="Enter task here"
+                @keyup.enter="addNewItem"
+                v-model="newItemName"
+            />
+            <button
+                @click="addNewItem"
+                class="add-new-button ml-1 bg-green-500 border-gray-300 transition ease-in-out rounded-xl"
+            >
+                <icon class="text-xl text-white" icon="plus" />
+            </button>
+        </div>
     </div>
 </template>
 
@@ -24,6 +44,7 @@
 
 import Dropdown from "@/components/Dropdown";
 import TodoItem from "@/components/TodoItem";
+import { CREATE_TODO_ITEM, GET_TODO_ITEMS, UPDATE_TODO_ITEM } from "@/store/action-types";
 
 export default {
     name: "TodoList",
@@ -45,8 +66,13 @@ export default {
             type: Number,
             default: 3,
         },
+        showNewItemInput: {
+            type: Boolean,
+            default: false,
+        },
     },
     data: () => ({
+        newItemName: ''
     }),
     computed: {
         isCountBadgeColoring() {
@@ -57,11 +83,22 @@ export default {
         },
     },
     methods: {
+        addNewItem() {
+            this.$store.dispatch(CREATE_TODO_ITEM, {
+                name: this.newItemName
+            }).then(() => {
+                this.newItemName = ''
+                this.$store.dispatch(GET_TODO_ITEMS)
+            })
+        }
     },
 }
 </script>
 
 <style scoped>
 
+.add-new-button {
+    min-width: 40px;
+}
 
 </style>
