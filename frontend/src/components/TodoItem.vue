@@ -9,7 +9,7 @@
                 v-if="item.done"
                 class="done-icon-wrapper bg-green-500 rounded-full flex justify-center items-center"
             >
-                <icon class="text-xl text-white" icon="check" />
+                <icon class="text-sm text-white" icon="check" />
             </div>
             <p
                 class="ml-2"
@@ -24,7 +24,7 @@
 <script>
 
 import Dropdown from "@/components/Dropdown";
-import { GET_TODO_ITEMS, UPDATE_TODO_ITEM } from "@/store/action-types";
+import { DELETE_TODO_ITEM, GET_TODO_ITEMS, UPDATE_TODO_ITEM } from "@/store/action-types";
 
 export default {
     name: "TodoItem",
@@ -59,7 +59,10 @@ export default {
                 text: 'Remove',
                 icon: 'trash',
                 callback(item) {
-                    console.log(item)
+                    let id = item.id
+                    _vm.$store.dispatch(DELETE_TODO_ITEM, id).then(() => {
+                        _vm.$store.dispatch(GET_TODO_ITEMS)
+                    })
                 }
             })
             actionTypes.push({
@@ -89,8 +92,8 @@ export default {
 }
 
 .done-icon-wrapper {
-    min-width: 32px;
-    min-height: 32px;
+    min-width: 25px;
+    min-height: 25px;
 }
 
 

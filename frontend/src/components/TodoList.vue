@@ -21,7 +21,7 @@
         </div>
         <div
             v-if="showNewItemInput"
-            class="mt-2 h-12 flex"
+            class="mt-4 h-12 flex"
         >
             <input
                 type="text"
@@ -32,7 +32,7 @@
             />
             <button
                 @click="addNewItem"
-                class="add-new-button ml-1 bg-green-500 border-gray-300 transition ease-in-out rounded-xl"
+                class="add-new-button ml-1 bg-green-500 border-gray-300 transition ease-in-out rounded-xl flex justify-center items-center"
             >
                 <icon class="text-xl text-white" icon="plus" />
             </button>
