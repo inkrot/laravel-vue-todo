@@ -2,10 +2,10 @@
     <Dropdown
         class="w-full"
         :actions="dropdownActions"
-        @action="dropdownAction"
+        :item="item"
     >
         <button class="w-full shadow bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-full uns">
-            {{ todo.name }}
+            {{ item.name }}
         </button>
     </Dropdown>
 </template>
@@ -13,25 +13,17 @@
 <script>
 
 import Dropdown from "@/components/Dropdown";
-import {
-    TODO_ITEM_EVENT_DONE, TODO_ITEM_EVENT_MOVE_TO_TODO,
-    TODO_ITEM_EVENT_MOVE_TO_URGENT,
-    TODO_ITEM_EVENT_REMOVE
-} from "@/store/todo-actions";
 
 export default {
     name: "TodoItem",
     components: {Dropdown},
     props: {
-        todo: Object,
+        item: Object,
     },
     data: () => ({
 
     }),
     methods: {
-        dropdownAction(event) {
-            console.log(event, this.todo)
-        }
     },
     computed: {
         dropdownActions() {
@@ -39,26 +31,34 @@ export default {
                 {
                     text: 'Done',
                     icon: 'check',
-                    event: TODO_ITEM_EVENT_DONE,
+                    callback(item) {
+                        console.log(item)
+                    }
                 },
                 {
                     text: 'Remove',
                     icon: 'trash',
-                    event: TODO_ITEM_EVENT_REMOVE,
+                    callback(item) {
+                        console.log(item)
+                    }
                 },
             ]
-            if (!this.todo.urgent) {
+            if (!this.item.urgent) {
                 actionTypes.push({
                     text: 'Move to urgent',
                     icon: 'flag',
-                    event: TODO_ITEM_EVENT_MOVE_TO_URGENT,
+                    callback(item) {
+                        console.log(item)
+                    }
                 })
             }
-            if (this.todo.urgent) {
+            if (this.item.urgent) {
                 actionTypes.push({
                     text: 'Return to todo',
                     icon: 'arrow-left-long',
-                    event: TODO_ITEM_EVENT_MOVE_TO_TODO,
+                    callback(item) {
+                        console.log(item)
+                    }
                 })
             }
             return actionTypes

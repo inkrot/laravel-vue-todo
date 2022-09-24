@@ -1,20 +1,20 @@
 <template>
     <div class="wrapper w-full h-full flex flex-col justify-center items-center p-4 md:p-0">
         <div class="mt-5 md:mt-0 mb-4">
-            <h1 class="text-xl md:text-2xl text-white font-bold">Todo app</h1>
+            <h1 class="text-xl md:text-2xl text-white font-bold">Todo app {{todoItemsStatus}}</h1>
         </div>
         <div class="main-container-wrapper overflow-hidden rounded-xl border-2 w-full h-full md:w-5/6 md:h-4/6 bg-white">
             <div class="main-container shadow-dark-blue w-full h-full p-4 flex flex-row">
                 <TodoList
                     class="todo-list-col w-full"
                     :title="'Todos'"
-                    :todos="regularTodos"
+                    :items="regularTodoItems"
                     @action="actionHandler"
                 />
                 <TodoList
                     class="todo-list-col w-full ml-4"
                     :title="'Urgent Todos'"
-                    :todos="urgentTodos"
+                    :items="urgentTodoItems"
                     :count-badge-coloring="true"
                     :count-badge-coloring-count="3"
                     @action="actionHandler"
@@ -27,44 +27,19 @@
 <script>
 
 import TodoList from "@/components/TodoList";
+import { mapGetters } from "vuex";
+import { GET_TODO_ITEMS } from "@/store/action-types";
 
 export default {
     components: {TodoList},
     data: () => ({
-        allTodos: [
-            {
-                id: 1,
-                name: 'Thing1',
-                done: false,
-                urgent: false,
-            },
-            {
-                id: 2,
-                name: 'Buy milk',
-                done: false,
-                urgent: true,
-            },
-            {
-                id: 3,
-                name: 'Thing2',
-                done: false,
-                urgent: false,
-            },
-            {
-                id: 4,
-                name: 'Thing3',
-                done: false,
-                urgent: true,
-            },
-        ],
+
     }),
     computed: {
-        regularTodos() {
-            return this.allTodos.filter(todo => !todo.urgent)
-        },
-        urgentTodos() {
-            return this.allTodos.filter(todo => todo.urgent)
-        },
+        ...mapGetters(['todoItems', 'regularTodoItems', 'urgentTodoItems', 'todoItemsStatus']),
+    },
+    mounted() {
+        this.$store.dispatch(GET_TODO_ITEMS)
     },
     methods: {
         actionHandler(action) {

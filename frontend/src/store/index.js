@@ -1,10 +1,10 @@
 import {createStore} from 'vuex'
 
-import TodosModule from "@/store/modules/todos";
+import TodoItemsModule from "@/store/modules/todo-items";
 
 const store = createStore({
     modules: {
-        TodosModule,
+        TodoItemsModule,
     },
     state: () => ({
 

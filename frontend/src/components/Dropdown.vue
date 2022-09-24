@@ -46,8 +46,11 @@ export default {
     name: "Dropdown",
     props: {
         actions: {
+            type: Array,
             default: [],
-            type: Array
+        },
+        item: {
+            type: Object
         },
     },
     data: () => ({
@@ -77,7 +80,7 @@ export default {
         },
         onClickDropdownAction(action) {
             this.open = false
-            this.$emit('action', action.event)
+            action.callback(this.item)
         },
     },
 }

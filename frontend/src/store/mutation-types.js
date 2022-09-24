@@ -1,2 +1,2 @@
 
-export const SET_TODOS = 'SET_TODOS'
+export const SET_TODO_ITEMS = 'SET_TODO_ITEMS'

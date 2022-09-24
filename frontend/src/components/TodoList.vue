@@ -11,9 +11,9 @@
         </div>
         <hr class="my-3 bg-gray-400 border-0" style="height: 1px">
         <ul class="h-full overflow-y-auto overscroll-auto">
-            <li class="mb-2 w-full" v-for="todo in todos">
+            <li class="mb-2 w-full" v-for="item in items">
                 <TodoItem
-                    :todo="todo"
+                    :item="item"
                 />
             </li>
         </ul>
@@ -33,7 +33,7 @@ export default {
             type: String,
             default: '',
         },
-        todos: {
+        items: {
             type: Array,
             default: [],
         },
@@ -48,15 +48,15 @@ export default {
     },
     data: () => ({
     }),
-    methods: {
-    },
     computed: {
         isCountBadgeColoring() {
             return this.countBadgeColoring && this.todosCount >= this.countBadgeColoringCount
         },
         todosCount() {
-            return this.todos?.length ?? 0
+            return this.items?.length ?? 0
         },
+    },
+    methods: {
     },
 }
 </script>
